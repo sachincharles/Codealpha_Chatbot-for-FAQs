@@ -66,7 +66,10 @@ if __name__ == "__main__":
     # Load and set background image
     try:
         bg_image = Image.open("your_image.png")  # <-- Replace with your image filename
-        bg_image = bg_image.resize((500, 500), Image.ANTIALIAS)
+        try:
+            bg_image = bg_image.resize((500, 500), Image.Resampling.LANCZOS)
+        except AttributeError:
+            bg_image = bg_image.resize((500, 500), Image.ANTIALIAS)
         bg_photo = ImageTk.PhotoImage(bg_image)
         bg_label = tk.Label(root, image=bg_photo)
         bg_label.image = bg_photo  # Keep a reference
@@ -80,7 +83,7 @@ if __name__ == "__main__":
         wrap=tk.WORD,
         state='disabled',
         font=("Arial", 12),
-        bg="black",
+        bg="#1a1a1a",  # Use a color from your image
         fg="white",
         insertbackground="white"
     )
